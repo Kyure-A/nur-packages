@@ -15,8 +15,9 @@ rec {
   overlays = import ./overlays; # nixpkgs overlays
 
   codex-switcher = pkgs.callPackage ./pkgs/codex-switcher { };
-  example-package = pkgs.callPackage ./pkgs/example-package { };
+  cosense-cli = pkgs.callPackage ./pkgs/cosense-cli { };
   kimi-code = pkgs.callPackage ./pkgs/kimi-code { };
+  manaba-cli = pkgs.callPackage ./pkgs/manaba-cli { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
