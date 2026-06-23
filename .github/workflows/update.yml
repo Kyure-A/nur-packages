@@ -1,0 +1,62 @@
+name: Update packages
+
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+    inputs:
+      packages:
+        description: "Space-separated packages to update; empty updates all"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update packages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PACKAGES: ${{ github.event.inputs.packages }}
+        run: |
+          nix shell nixpkgs#python3 nixpkgs#nixpkgs-fmt -c \
+            python3 scripts/update-package.py $PACKAGES
+
+      - name: Build updated packages
+        if: ${{ hashFiles('pkgs/**/default.nix') != '' }}
+        run: |
+          packages="${{ github.event.inputs.packages }}"
+          if [ -z "$packages" ]; then
+            packages="codex-switcher cosense-cli kimi-code manaba-cli"
+          fi
+          for package in $packages; do
+            case "$package" in
+              codex-switcher)
+                nix eval ".#packages.aarch64-darwin.codex-switcher.meta.mainProgram"
+                ;;
+              *)
+                nix build ".#$package" --no-link
+                ;;
+            esac
+          done
+
+      - uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: update/packages
+          delete-branch: true
+          commit-message: "chore: update packages"
+          title: "chore: update packages"
+          body: "Automated package update."
