@@ -8,11 +8,11 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "cosense-cli";
-  version = "1.4.6";
+  version = "1.15.0";
 
   src = fetchurl {
     url = "https://registry.npmjs.org/@helpfeel/cosense-cli/-/cosense-cli-${version}.tgz";
-    hash = "sha256-dE6e2nbUdXABnhMy82tvluHmMN5KLpwr904+gszCq0g=";
+    hash = "sha256-DQh/1XGVGUjaY2SFExPaaObpzX8WUg/6nUf8L8bRWZw=";
   };
 
   sourceRoot = "package";

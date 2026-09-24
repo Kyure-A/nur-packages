@@ -5,15 +5,15 @@
 }:
 
 let
-  version = "0.2.3";
+  version = "0.2.20";
   releases = {
     aarch64-darwin = {
       url = "https://github.com/Lampese/codex-switcher/releases/download/v${version}/Codex.Switcher_aarch64.app.tar.gz";
-      hash = "sha256-R/+BnhdSa4w3GAjZoqHPht50zvNauwtS/27fMjYX9ck=";
+      hash = "sha256-IOpVjNPHvwSql3HguTMvTIgwriDVuWWtHH+gUROlzXc=";
     };
     x86_64-darwin = {
       url = "https://github.com/Lampese/codex-switcher/releases/download/v${version}/Codex.Switcher_x64.app.tar.gz";
-      hash = "sha256-oS5+dbHk0TP9wugLncHeKvF0RHUAaUrrwFyJP7a9wAI=";
+      hash = "sha256-fsxdSoM6CIuSCiQ+qmYKr6yGtEow5TiFV53T4EuTpzM=";
     };
   };
 
