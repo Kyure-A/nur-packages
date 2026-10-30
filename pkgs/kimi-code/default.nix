@@ -8,11 +8,11 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "kimi-code";
-  version = "0.19.0";
+  version = "2.4.1";
 
   src = fetchurl {
     url = "https://registry.npmjs.org/@moonshot-ai/kimi-code/-/kimi-code-${version}.tgz";
-    hash = "sha256-ZqDUCw4M9k+2tEnPI7RFbrgczn+aIi27s0rORgfdV58=";
+    hash = "sha256-59rAT6ehVcUG2GCZWE/kQvl6Ii5E2iwEJ0mWjfyujgk=";
   };
 
   sourceRoot = "package";
